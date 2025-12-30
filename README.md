@@ -33,7 +33,11 @@ This project generates Spring Boot–style plain text logs with:
    b. NO_OF_THREADS_PER_CYCLE=3 -Number of threads running per cycle.
    c. MAX_LOG_SIZE=1 -Max possible size of log file in MB
    d. BACKUP_COUNT=2 -How many backup of log file to store.
-   ``` 
+   ```
+8. Example logs
+   ```
+   2025-12-30 19:05:12.f ERROR  20062 --- [api_gateway-thread-1-0] api_gateway [traceId=1e7f988887ca4d39a56720ff48d32439 spanId=dec61aa3724a4c28 paymentId=pay_f1889166] : Request validation failed
+   ```
 
 
 **How It Works:**
