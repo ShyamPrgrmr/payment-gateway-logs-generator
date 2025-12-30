@@ -58,13 +58,10 @@ This project generates Spring Boot–style plain text logs with:
    d. Run the main.py.
    ```
 2. Using docker
-
-	```a. Create docker image using docker build:
-
-	```bash
- 	docker build -t <image-name> .
+	```
+	a. Create docker image using docker build:
+ 		docker build -t <image-name> .
+	b. Run the container using docker run. You can apply the environment variables as well as listed above.
  	```
-
-	b. Run the container using docker run. You can apply the environment variables as well as listed above. ```
 
 
