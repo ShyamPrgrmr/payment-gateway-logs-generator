@@ -55,7 +55,12 @@ This project generates Spring Boot–style plain text logs with:
    d. Run the main.py.
    
 3. Using docker
-	a. Create docker image using
-		> 2025-12-30 19:05:12.f INFO  20062 --- [api_gateway-thread-1-0] api_gateway [traceId=1e7f988887ca4d39a56720ff48d32439 spanId=dec61aa3724a4c28 paymentId=pay_f1889166] : Request validation failed
+	a. Create docker image using docker build:
+
+	```bash
+ 	docker build -t <image-name> .
+ 	```
+
+	b. Run the container using docker run. You can apply the environment variables as well as listed above. 
 
 
