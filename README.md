@@ -1,4 +1,5 @@
 **About Project**
+
 A production-grade log generator that simulates real payment gateway distributed systems behavior using Python.
 This project generates Spring Boot–style plain text logs with:
 ✅ Consistent traceId across services
@@ -9,6 +10,7 @@ This project generates Spring Boot–style plain text logs with:
 ✅ Dockerized execution
 ✅ CSV-driven log messages
 ✅ Infinite traffic simulation
+
 Designed for observability demos, ELK/Loki testing, SRE practice.
 
 
