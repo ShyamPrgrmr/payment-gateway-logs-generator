@@ -16,13 +16,3 @@ def get_context():
         getattr(_context, "accountId", "-"),
         getattr(_context, "merchantId", "-")
     )
-
-class MDCFilter(logging.Filter):
-    def filter(self, record):
-        paymentId, accountId, merchantId = get_context()
-        record.paymentId = paymentId
-        record.accountId = accountId
-        record.merchantId = merchantId
-        record.traceId = getattr(record, "traceId", "-")
-        record.spanId = getattr(record, "spanId", "-")
-        return True

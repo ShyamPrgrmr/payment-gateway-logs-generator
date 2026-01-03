@@ -5,47 +5,24 @@ import time
 from logger import service_worker
 from transactionQueue import generate_transactions
 from appLogger import normal_app_logger
+from setup import getLogsPath
 normLogger = normal_app_logger()
-
+from constants import *
 
 normLogger.info("Started")
 
-NoOfTransactions = os.environ.get("NO_OF_TRANSACTIONS_PER_CYCLE")
-NoOfTransactions = "10000" if NoOfTransactions==None else NoOfTransactions
+NoOfTransactions = DEFAULT_NO_OF_TRANSACTIONS_PER_CYCLE if os.environ.get(NO_OF_TRANSACTIONS_PER_CYCLE)==None else os.environ.get(NO_OF_TRANSACTIONS_PER_CYCLE)
 normLogger.info("Number of transactions per cycle : {}".format(NoOfTransactions))
 
+ThreadsPerCycle = DEFAULT_THREADS_PER_LOG if os.environ.get(NO_OF_THREADS_PER_CYCLE)==None else os.environ.get(NO_OF_THREADS_PER_CYCLE)
+normLogger.info("Threads per cycle : {}".format(ThreadsPerCycle))
 
-ThreadsPerLog = os.environ.get("NO_OF_THREADS_PER_CYCLE")
-ThreadsPerLog = "5" if ThreadsPerLog==None else ThreadsPerLog
-
-
-CSV_FILES = {
-    "api_gateway": "./files/api_gateway_logs_10000.csv",
-    "authentication_service": "./files/authentication_service_logs_10000.csv",
-    "payment_processor": "./files/payment_processor_logs_10000.csv",
-    "fraud_detection": "./files/fraud_detection_logs_10000.csv",
-    "risk_engine": "./files/risk_engine_logs_10000.csv",
-    "settlement_service": "./files/settlement_service_logs_10000.csv",
-    "notification_service": "./files/notification_service_logs_10000.csv",
-    "ledger_service": "./files/ledger_service_logs_10000.csv",
-    "reporting_service": "./files/reporting_service_logs_10000.csv",
-}
-
-LOG_DIR = "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
+normLogger.info("Log Directory : {}".format(LOG_DIR))
 
-components = [
-    "api_gateway",
-    "payment_processor",
-    "risk_engine",
-    "settlement",
-    "fraud_detection",
-    "ledger_service",
-    "authentication_service",
-    "reporting_service",
-    "notification_service"
-]
-
+LogToUse = os.environ.get(LOG_TO_USE)
+components = DEFAULT_COMPONENT if LogToUse == None else getLogsPath(LogToUse)
+normLogger.info(f"Component selected for logging: {components}")
 
 cycle = 1
 
@@ -55,26 +32,27 @@ try:
         transactions = generate_transactions(int(100 if NoOfTransactions==None else NoOfTransactions))
         threads = []
         for comp in components:
-            for i in range(0,int(ThreadsPerLog)):
+            for i in range(0,int(ThreadsPerCycle)):
                 t = threading.Thread(
                     target=service_worker,
-                    name=f"{comp}-thread-{cycle}-{i}",
+                    name=THREAD_NAME.format(comp,cycle,i),
                     args=(comp, transactions, cycle)
                 )
                 t.start()
                 threads.append(t)
-        
+                
         for t in threads:
             t.join()
+        normLogger.info("Completed logs generation cycle {}".format(str(cycle)))
         cycle += 1
         time.sleep(1)
 
 except KeyboardInterrupt:
     normLogger.info("Shutting down log generator gracefully...")
 
-    
-normLogger.info("Completed logs generation cycle {}".format(str(cycle)))
-cycle = cycle+1
+
+
+
 
 
 
