@@ -45,12 +45,11 @@ This project generates Spring Boot–style plain text logs with:
 	a. paymentId
 	b. traceId
 2. Each transaction fans out to all components
-3. Each component:
-4. Picks a log line from its CSV
-5. Generates a new spanId
-6. Writes to its own log file
-7. Logs rotate automatically at 1 MB
-8. The cycle repeats infinitely
+3. Picks a log line from its CSV
+4. Generates a new spanId
+5. Writes to its own log file
+6. Logs rotate automatically at 1 MB
+7. The cycle repeats infinitely
 
 **How to use**
 
