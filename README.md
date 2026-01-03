@@ -29,10 +29,11 @@ This project generates Spring Boot–style plain text logs with:
 6. Infinite traffic generation (Infinite log generation cycles with multiple threads running parallely to control speed of log generation.)
 7. Log creation controls using environment variables.
    ```
-   a. NO_OF_TRANSACTIONS_PER_CYCLE=5000 -Transactions to create in cycle.
-   b. NO_OF_THREADS_PER_CYCLE=3 -Number of threads running per cycle.
-   c. MAX_LOG_SIZE=1 -Max possible size of log file in MB
-   d. BACKUP_COUNT=2 -How many backup of log file to store.
+   a. NO_OF_TRANSACTIONS_PER_CYCLE="NO_OF_TRANSACTIONS_PER_CYCLE"
+   b. NO_OF_THREADS_PER_CYCLE="NO_OF_THREADS_PER_CYCLE"
+   c. LOG_TO_USE="COMPONENT_TO_USE" (Comma separated)
+   d. MAX_LOG_SIZE="MAX_LOG_SIZE"
+   e. BACKUP_COUNT="BACKUP_COUNT"
    ```
 8. Example logs
    ```
@@ -65,6 +66,14 @@ This project generates Spring Boot–style plain text logs with:
 	a. Create docker image using docker build:
  		docker build -t <image-name> .
 	b. Run the container using docker run. You can apply the environment variables as listed above.
+   c. To use it with environement variable, create a .env file with. example : 
+
+      NO_OF_TRANSACTIONS_PER_CYCLE=5000
+      NO_OF_THREADS_PER_CYCLE=3
+      COMPONENT_TO_USE=payment_processor
+      MAX_LOG_SIZE=1
+      BACKUP_COUNT=2
+
  	```
 
 

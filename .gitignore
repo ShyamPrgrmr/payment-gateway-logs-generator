@@ -1,3 +1,4 @@
 /logs-infra/*
 /logs/*
 /__pycache__/*
+/temp.txt
